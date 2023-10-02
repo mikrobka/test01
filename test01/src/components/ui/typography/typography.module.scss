@@ -1,0 +1,40 @@
+@mixin typography($fontSize, $lineHeight, $fontWeight) {
+  margin: 0;
+
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: #0a0a0a;
+}
+
+.h1 {
+  @include typography(
+    var(--font-size-l),
+    var(--line-height-l),
+    var(--font-weight-large)
+  );
+}
+
+.h2 {
+  @include typography(
+    var(--font-size-m),
+    var(--line-height-m),
+    var(--font-weight-bold)
+  );
+}
+
+.body1 {
+  @include typography(
+    var(--font-size-s),
+    var(--line-height-s),
+    var(--font-weight-regular)
+  );
+}
+
+.body2 {
+  @include typography(
+    var(--font-size-xs),
+    var(--line-height-xs),
+    var(--font-weight-regular)
+  );
+}
