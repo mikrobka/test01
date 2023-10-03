@@ -1,4 +1,6 @@
-import { Post } from "@/components/post/post"
+import s from "./posts-list.module.scss"
+
+import { Post } from "@/features/posts/post"
 import { PostType } from "@/features/posts/posts-slice"
 
 type PostsListType = {
@@ -7,9 +9,9 @@ type PostsListType = {
 
 export const PostsList = ({ posts }: PostsListType) => {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className={s.container}>
       {posts.map((post, index) => (
-        <Post key={post.id} post={post} />
+        <Post fullWidth={index === 0} key={post.id} post={post} />
       ))}
     </div>
   )
