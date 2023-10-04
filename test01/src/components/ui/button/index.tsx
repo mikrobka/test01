@@ -7,7 +7,7 @@ import s from "./button.module.scss"
 export interface ButtonProps<T extends React.ElementType = "button"> {
   as?: T
   children?: React.ReactNode
-  variant?: "primary" | "like"
+  variant?: "primary" | "vote"
   fullWidth?: boolean
   className?: string
   icon?: React.ReactNode

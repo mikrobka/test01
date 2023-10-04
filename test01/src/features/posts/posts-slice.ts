@@ -20,7 +20,9 @@ const initialState: PostsState = {
 }
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts")
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=10",
+  )
 
   return (await response.json()) as PostType[]
 })

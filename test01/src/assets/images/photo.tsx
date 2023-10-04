@@ -8,8 +8,8 @@ const SvgComponent = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width={558}
-    height={273}
+    width={500}
+    height={400}
     fill="none"
     ref={ref}
     {...props}

@@ -25,18 +25,6 @@
       justify-content: space-between;
     }
 
-    .likes {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .like {
-      align-items: center;
-      display: flex;
-      gap: 5px;
-    }
-
     .body {
       margin: 32px 0 32px 0;
     }
@@ -47,12 +35,12 @@
     }
   }
 
-  &.not-full-width {
+  &.not-full-with {
     width: 50%;
 
     .photo {
       width: 50%;
-      height: 400px;
+      height: 50%;
     }
   }
 }

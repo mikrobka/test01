@@ -4,6 +4,7 @@ import { LargePhoto, Photo } from "@/assets"
 import { Like } from "@/assets/icons"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
+import { Vote } from "@/components/vote"
 import { PostType } from "@/features/posts/posts-slice"
 
 type Props = {
@@ -27,20 +28,7 @@ export const Post = ({ post, fullWidth = true }: Props) => {
       <div className={s.content}>
         <div className={s.title}>
           <Typography variant={"h2"}>{post.title}</Typography>
-          <div className={s.likes}>
-            <div className={s.like}>
-              <Button variant={"like"}>
-                <Like variant={"like"} />
-              </Button>
-              <Typography variant={"body2"}>252</Typography>
-            </div>
-            <div className={s.like}>
-              <Button variant={"like"}>
-                <Like variant={"like"} />
-              </Button>
-              <Typography variant={"body2"}>5</Typography>
-            </div>
-          </div>
+          <Vote />
         </div>
         <div className={s.body}>
           <Typography variant={"body1"}>{post.body}</Typography>
