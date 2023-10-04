@@ -19,20 +19,20 @@ export const Post = ({ post, fullWidth = true }: Props) => {
         fullWidth ? s["full-width"] : s["not-full-with"]
       }`}
     >
-      {fullWidth ? (
-        <LargePhoto className={s.photo} />
-      ) : (
-        <Photo className={s.photo} />
-      )}
+      <img className={s.photo} src="https://placehold.co/1920x1080" alt="" />
 
       <div className={s.content}>
         <div className={s.title}>
-          <Typography variant={"h2"}>{post.title}</Typography>
+          <Typography className={s.typography} variant={"h2"}>
+            {post.title}
+          </Typography>
           <Vote />
         </div>
-        <div className={s.body}>
-          <Typography variant={"body1"}>{post.body}</Typography>
-        </div>
+        {fullWidth && (
+          <div className={s.body}>
+            <Typography variant={"body1"}>{post.body}</Typography>
+          </div>
+        )}
         <div className={s.button}>
           <Button>Читать далее</Button>
         </div>

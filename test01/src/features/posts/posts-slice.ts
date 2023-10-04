@@ -20,12 +20,21 @@ const initialState: PostsState = {
 }
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=10",
-  )
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts")
 
   return (await response.json()) as PostType[]
 })
+
+export const fetchFilteredPosts = createAsyncThunk(
+  "posts/fetchFilteredPosts",
+  async (searchQuery: string) => {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts?q=${searchQuery}`,
+    )
+
+    return (await response.json()) as PostType[]
+  },
+)
 
 const postsSlice = createSlice({
   name: "posts",
@@ -44,6 +53,19 @@ const postsSlice = createSlice({
         },
       )
       .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = "failed"
+      })
+      .addCase(fetchFilteredPosts.pending, (state) => {
+        state.status = "loading"
+      })
+      .addCase(
+        fetchFilteredPosts.fulfilled,
+        (state, action: PayloadAction<PostType[]>) => {
+          state.status = "succeeded"
+          state.posts = action.payload
+        },
+      )
+      .addCase(fetchFilteredPosts.rejected, (state, action) => {
         state.status = "failed"
       })
   },

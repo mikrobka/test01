@@ -36,12 +36,7 @@ export const TextField: FC<TextFieldProps> = ({
   if (type === "search") {
     iconStart = <Search />
   }
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (onEnter && e.key === "Enter") {
-      onEnter(e)
-    }
-    onKeyDown?.(e)
-  }
+
   const classNames = {
     root: clsx(s.root, className),
     input: clsx(s.input, showError && s.error),
@@ -62,7 +57,6 @@ export const TextField: FC<TextFieldProps> = ({
           disabled={disabled}
           data-icon={dataIcon}
           className={classNames.input}
-          onKeyDown={handleKeyDown}
           {...rest}
         />
 
