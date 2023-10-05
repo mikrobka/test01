@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 
-import { postsReducer } from "@/features/posts/posts-slice"
+import { postsReducer } from "@/features/pages/posts-list/posts/posts-slice"
 
 export const store = configureStore({
   reducer: {
@@ -16,3 +16,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
+//@ts-ignore
+window.store = store

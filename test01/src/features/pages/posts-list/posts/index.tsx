@@ -1,7 +1,7 @@
 import s from "./posts-list.module.scss"
 
-import { Post } from "@/features/posts/post"
-import { PostType } from "@/features/posts/posts-slice"
+import { Post } from "@/features/pages/posts-list/posts/post"
+import { PostType } from "@/features/pages/posts-list/posts/posts-slice"
 
 type PostsListType = {
   posts: PostType[]

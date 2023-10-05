@@ -1,13 +1,15 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 
 import s from "./app.module.scss"
 
 import { useAppDispatch, useAppSelector, useDebounce } from "@/app/hooks"
+import { Header } from "@/components/header"
 import { Loader } from "@/components/ui/loader"
-import { TextField } from "@/components/ui/text-field"
-import { Typography } from "@/components/ui/typography"
-import { PostsList } from "@/features/posts"
-import { fetchFilteredPosts, fetchPosts } from "@/features/posts/posts-slice"
+import { PostsList } from "@/features/pages/posts-list/posts"
+import {
+  fetchFilteredPosts,
+  fetchPosts,
+} from "@/features/pages/posts-list/posts/posts-slice"
 
 function App() {
   const dispatch = useAppDispatch()
@@ -17,44 +19,29 @@ function App() {
   const debounceValue = useDebounce(searchQuery, 1000)
 
   useEffect(() => {
-    if (postsStatus === "idle") {
+    if (debounceValue === "") {
       dispatch(fetchPosts())
-    }
-  }, [postsStatus, dispatch])
-
-  useEffect(() => {
-    if (searchQuery) {
+    } else {
       dispatch(fetchFilteredPosts(debounceValue))
     }
   }, [debounceValue, dispatch])
 
-  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
-  }
+  }, [])
 
   return (
     <div className={s.content}>
+      <Header searchQuery={searchQuery} onSearchChange={onSearchChange} />
       {postsStatus === "loading" ? (
         <Loader />
       ) : (
         <>
-          <div className={s.title}>
-            <Typography variant={"h1"}> Блог</Typography>
-            <Typography variant={"body1"}>
-              {" "}
-              Здесь мы делимся интересными кейсами из наших проектов, пишем про
-              IT, а также переводим зарубежные статьи
-            </Typography>
-          </div>
-          <TextField
-            value={searchQuery}
-            onChange={onSearchChange}
-            placeholder={"Поиск по названию статьи"}
-            className={s.textField}
-            type={"search"}
-          />
-
-          <PostsList posts={posts} />
+          {postsStatus === "succeeded" && posts.length === 0 ? (
+            <div>По вашему запросу ничего не найдено</div>
+          ) : (
+            <PostsList posts={posts} />
+          )}
         </>
       )}
     </div>

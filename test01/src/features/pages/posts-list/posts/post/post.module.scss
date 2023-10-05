@@ -3,19 +3,25 @@
   background-color: #fff;
   box-shadow: 4px 4px 4px 4px rgba(180, 179, 182, 0.35);
 
+  .content {
+    margin: 24px 16px 32px 16px;
+    height: auto;
+  }
+
   .photo {
     width: 100%;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
   }
 
+  .button {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   &.full-width {
     width: 100%;
     margin-bottom: 24px;
-
-    .content {
-      margin: 24px 16px 32px 16px;
-    }
 
     .title {
       width: 100%;
@@ -25,11 +31,6 @@
 
     .body {
       margin: 32px 0 32px 0;
-    }
-
-    .button {
-      display: flex;
-      justify-content: flex-end;
     }
   }
 
@@ -41,16 +42,8 @@
     margin-bottom: 24px;
     margin-right: 24px;
 
-    .content {
-      margin: 24px 16px 32px 16px;
-    }
-
     .typography {
       margin-bottom: 12px;
-    }
-    .button {
-      display: flex;
-      justify-content: flex-end;
     }
   }
 }

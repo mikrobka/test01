@@ -4,12 +4,13 @@ import "@fontsource/roboto/700.css"
 
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
+import { HashRouter } from "react-router-dom"
 
-import App from "@/app/app"
+import { router } from "@/app/routes"
 import { store } from "@/app/store"
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
-    <App />
+    <HashRouter>{router}</HashRouter>
   </Provider>,
 )

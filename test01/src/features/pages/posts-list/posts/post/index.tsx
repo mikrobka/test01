@@ -1,11 +1,11 @@
+import { useNavigate } from "react-router-dom"
+
 import s from "./post.module.scss"
 
-import { LargePhoto, Photo } from "@/assets"
-import { Like } from "@/assets/icons"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { Vote } from "@/components/vote"
-import { PostType } from "@/features/posts/posts-slice"
+import { PostType } from "@/features/pages/posts-list/posts/posts-slice"
 
 type Props = {
   post: PostType
@@ -13,6 +13,12 @@ type Props = {
 }
 
 export const Post = ({ post, fullWidth = true }: Props) => {
+  const navigate = useNavigate()
+
+  const handleReadMoreClick = () => {
+    navigate(`post/${post.id}`)
+  }
+
   return (
     <div
       className={`${s.post} ${
@@ -34,7 +40,7 @@ export const Post = ({ post, fullWidth = true }: Props) => {
           </div>
         )}
         <div className={s.button}>
-          <Button>Читать далее</Button>
+          <Button onClick={handleReadMoreClick}>Читать далее</Button>
         </div>
       </div>
     </div>
