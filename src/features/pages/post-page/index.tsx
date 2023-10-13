@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import s from "./post-page.module.scss"
 
 import { useAppSelector } from "@/app/hooks"
+import { RouteNames } from "@/app/routes"
 import { ArrowBack } from "@/assets"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
@@ -23,7 +24,7 @@ export const PostPage = () => {
   }
 
   const onHandleClick = () => {
-    navigate("/")
+    navigate(RouteNames.START_PAGE)
   }
 
   return (

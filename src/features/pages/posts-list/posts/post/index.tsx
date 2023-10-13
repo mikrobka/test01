@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 
 import s from "./post.module.scss"
 
+import { RouteNames } from "@/app/routes"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { Vote } from "@/components/vote"
@@ -16,7 +17,7 @@ export const Post = ({ post, fullWidth = true }: Props) => {
   const navigate = useNavigate()
 
   const handleReadMoreClick = () => {
-    navigate(`post/${post.id}`)
+    navigate(RouteNames.POST_ID.replace(":id", post.id.toString()))
   }
 
   return (

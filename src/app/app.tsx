@@ -6,10 +6,7 @@ import { useAppDispatch, useAppSelector, useDebounce } from "@/app/hooks"
 import { Header } from "@/components/header"
 import { Loader } from "@/components/ui/loader"
 import { PostsList } from "@/features/pages/posts-list/posts"
-import {
-  fetchFilteredPosts,
-  fetchPosts,
-} from "@/features/pages/posts-list/posts/posts-slice"
+import { fetchPosts } from "@/features/pages/posts-list/posts/posts-slice"
 
 function App() {
   const dispatch = useAppDispatch()
@@ -19,11 +16,7 @@ function App() {
   const debounceValue = useDebounce(searchQuery, 1000)
 
   useEffect(() => {
-    if (debounceValue === "") {
-      dispatch(fetchPosts())
-    } else {
-      dispatch(fetchFilteredPosts(debounceValue))
-    }
+    dispatch(fetchPosts(debounceValue || ""))
   }, [debounceValue, dispatch])
 
   const onSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {

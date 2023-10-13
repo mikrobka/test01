@@ -42,7 +42,6 @@ export const Vote = () => {
         <VoteItem
           key={index}
           variant={index === 0 ? "like" : "dislike"}
-          index={index}
           like={item}
           handleLike={() => handleLike(index)}
         />

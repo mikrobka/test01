@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 
+import { instance, postsAPI } from "@/app/api"
+
 export type PostType = {
   body: string
   id: number
@@ -16,23 +18,32 @@ interface PostsState {
 const initialState: PostsState = {
   posts: [],
   status: "idle",
-  error: null as null | string,
+  error: null,
 }
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts")
+export const fetchPosts = createAsyncThunk(
+  "posts/fetchPosts",
+  async (searchQuery: string = "") => {
+    try {
+      const response = await postsAPI.posts(searchQuery)
 
-  return (await response.json()) as PostType[]
-})
+      return response.data
+    } catch (error) {
+      throw new Error("Failed to fetch posts")
+    }
+  },
+)
 
-export const fetchFilteredPosts = createAsyncThunk(
-  "posts/fetchFilteredPosts",
-  async (searchQuery: string) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts?q=${searchQuery}`,
-    )
+export const fetchPostById = createAsyncThunk(
+  "posts/fetchPost",
+  async (postId: number) => {
+    try {
+      const response = await instance.get<PostType>(`${postId}`)
 
-    return (await response.json()) as PostType[]
+      return response.data
+    } catch (error) {
+      throw new Error("Failed to fetch post by ID")
+    }
   },
 )
 
@@ -53,19 +64,6 @@ const postsSlice = createSlice({
         },
       )
       .addCase(fetchPosts.rejected, (state, action) => {
-        state.status = "failed"
-      })
-      .addCase(fetchFilteredPosts.pending, (state) => {
-        state.status = "loading"
-      })
-      .addCase(
-        fetchFilteredPosts.fulfilled,
-        (state, action: PayloadAction<PostType[]>) => {
-          state.status = "succeeded"
-          state.posts = action.payload
-        },
-      )
-      .addCase(fetchFilteredPosts.rejected, (state, action) => {
         state.status = "failed"
       })
   },
