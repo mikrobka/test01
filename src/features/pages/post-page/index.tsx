@@ -1,22 +1,31 @@
+import { useEffect } from "react"
+
 import { useNavigate, useParams } from "react-router-dom"
 
 import s from "./post-page.module.scss"
 
-import { useAppSelector } from "@/app/hooks"
+import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/app/routes"
 import { ArrowBack } from "@/assets"
 import { Button } from "@/components/ui/button"
+import { Loader } from "@/components/ui/loader"
 import { Typography } from "@/components/ui/typography"
 import { Vote } from "@/components/vote"
+import { fetchPostById } from "@/features/pages/posts-list/posts/posts-slice"
 
 export const PostPage = () => {
-  const { id } = useParams()
-  const posts = useAppSelector((state) => state.posts.posts)
+  let { id } = useParams()
+  const post = useAppSelector((state) => state.posts.currentPost)
+  const postsStatus = useAppSelector((state) => state.posts.status)
   const navigate = useNavigate()
-  let post
+  const dispatch = useAppDispatch()
 
-  if (typeof id === "string") {
-    post = posts.find((p) => p.id === parseInt(id, 10))
+  useEffect(() => {
+    dispatch(fetchPostById(Number(id)))
+  }, [id, dispatch])
+
+  if (postsStatus === "loading") {
+    return <Loader />
   }
 
   if (!post) {

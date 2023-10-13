@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 
-import { instance, postsAPI } from "@/app/api"
+import { postsAPI } from "@/app/api"
 
 export type PostType = {
   body: string
@@ -11,12 +11,14 @@ export type PostType = {
 
 interface PostsState {
   posts: PostType[]
+  currentPost: PostType | null
   status: "idle" | "loading" | "succeeded" | "failed"
   error: string | null
 }
 
 const initialState: PostsState = {
   posts: [],
+  currentPost: null,
   status: "idle",
   error: null,
 }
@@ -38,7 +40,7 @@ export const fetchPostById = createAsyncThunk(
   "posts/fetchPost",
   async (postId: number) => {
     try {
-      const response = await instance.get<PostType>(`${postId}`)
+      const response = await postsAPI.getPostById(postId)
 
       return response.data
     } catch (error) {
@@ -63,9 +65,19 @@ const postsSlice = createSlice({
           state.posts = action.payload
         },
       )
-      .addCase(fetchPosts.rejected, (state, action) => {
+      .addCase(fetchPosts.rejected, (state) => {
         state.status = "failed"
       })
+      .addCase(fetchPostById.pending.type, (state) => {
+        state.status = "loading"
+      })
+      .addCase(
+        fetchPostById.fulfilled.type,
+        (state, action: PayloadAction<PostType>) => {
+          state.status = "succeeded"
+          state.currentPost = action.payload
+        },
+      )
   },
 })
 

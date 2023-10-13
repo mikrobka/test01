@@ -14,6 +14,6 @@ export const postsAPI = {
     return instance.get<PostType[]>(url)
   },
   getPostById(id: number) {
-    return instance.get<PostType[]>(`posts/${id}`)
+    return instance.get<PostType[]>(`${id}`)
   },
 }
