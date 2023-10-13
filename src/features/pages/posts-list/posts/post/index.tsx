@@ -6,10 +6,8 @@ import { RouteNames } from "@/app/routes"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { Vote } from "@/components/vote"
-import {
-  fetchPostById,
-  PostType,
-} from "@/features/pages/posts-list/posts/posts-slice"
+import { VoteProvider } from "@/components/vote/vote-context"
+import { PostType } from "@/features/pages/posts-list/posts/posts-slice"
 
 type Props = {
   post: PostType
