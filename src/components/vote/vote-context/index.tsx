@@ -14,8 +14,11 @@ export const VoteContext = createContext<VoteContextType>({
   like: [],
   handleLike: () => {},
 })
+type VoteProviderProps = {
+  children: ReactNode
+}
 
-export const VoteProvider = ({ children }: any) => {
+export const VoteProvider = ({ children }: VoteProviderProps) => {
   const [like, setLike] = useState<LikeType[]>([
     { count: Math.floor(Math.random() * 50), active: false },
     { count: Math.floor(Math.random() * 50), active: false },

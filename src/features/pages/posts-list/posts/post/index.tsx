@@ -6,7 +6,6 @@ import { RouteNames } from "@/app/routes"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { Vote } from "@/components/vote"
-import { VoteProvider } from "@/components/vote/vote-context"
 import { PostType } from "@/features/pages/posts-list/posts/posts-slice"
 
 type Props = {
@@ -17,9 +16,8 @@ type Props = {
 export const Post = ({ post, fullWidth = true }: Props) => {
   const navigate = useNavigate()
 
-  const handleReadMoreClick = () => {
+  const handleReadMoreClick = () =>
     navigate(RouteNames.POST_ID.replace(":id", post.id.toString()))
-  }
 
   return (
     <div

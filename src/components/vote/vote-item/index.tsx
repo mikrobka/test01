@@ -3,7 +3,7 @@ import s from "./vote-item.module.scss"
 import { Like } from "@/assets"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
-import { LikeType } from "@/components/vote"
+import { LikeType } from "@/components/vote/vote-context"
 
 type Props = {
   like: LikeType
