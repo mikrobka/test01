@@ -12,8 +12,7 @@ type Props = {
 export const Vote = ({ postId }: Props) => {
   const { likes, handleLike } = useContext(VoteContext)
 
-  // Получаем лайки для конкретного поста по его postId
-  const postLikes = (likes[postId] || []).slice(0, 2) // Ограничиваем до 2 элементов
+  const postLikes = (likes[postId] || []).slice(0, 2)
 
   return (
     <div className={s.likes}>
