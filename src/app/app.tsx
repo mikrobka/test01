@@ -5,7 +5,6 @@ import s from "./app.module.scss"
 import { useAppDispatch, useAppSelector, useDebounce } from "@/app/hooks"
 import { Header } from "@/components/header"
 import { Loader } from "@/components/ui/loader"
-import { VoteProvider } from "@/components/vote/vote-context"
 import { PostsList } from "@/features/pages/posts-list/posts"
 import { fetchPosts } from "@/features/pages/posts-list/posts/posts-slice"
 
