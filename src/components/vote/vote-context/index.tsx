@@ -1,52 +1,70 @@
-import { createContext, ReactNode, useState } from "react"
+import { createContext, ReactNode, useState, useMemo } from "react"
 
 export type LikeType = {
   count: number
   active: boolean
 }
 
+type LikeDictionary = {
+  [postId: number]: LikeType[]
+}
+
 type VoteContextType = {
-  like: LikeType[]
-  handleLike: (index: number) => void
+  likes: LikeDictionary
+  handleLike: (postId: number, index: number) => void
 }
 
 export const VoteContext = createContext<VoteContextType>({
-  like: [],
+  likes: {},
   handleLike: () => {},
 })
+
 type VoteProviderProps = {
   children: ReactNode
 }
 
 export const VoteProvider = ({ children }: VoteProviderProps) => {
-  const [like, setLike] = useState<LikeType[]>([
-    { count: Math.floor(Math.random() * 50), active: false },
-    { count: Math.floor(Math.random() * 50), active: false },
-  ])
+  const initialLikesState: LikeDictionary = useMemo(() => {
+    const generateLikesArray = () => {
+      return Array.from({ length: 100 }, () => ({
+        count: Math.floor(Math.random() * 50),
+        active: false,
+      }))
+    }
 
-  const handleLike = (index: number) => {
-    setLike((prevState) => {
-      return prevState.map((item, i) => {
-        if (i === index) {
-          item.active = !item.active
+    const likesState: LikeDictionary = {}
 
-          if (item.active && prevState[1 - i].active) {
-            prevState[1 - i].active = false
-            prevState[1 - i].count -= 1
-          }
+    for (let postId = 1; postId <= 100; postId++) {
+      likesState[postId] = generateLikesArray()
+    }
 
-          item.count = item.active
-            ? prevState[i].count + 1
-            : prevState[i].count - 1
-        }
+    return likesState
+  }, [])
 
-        return item
-      })
+  const [likes, setLikes] = useState<LikeDictionary>(initialLikesState)
+
+  const handleLike = (postId: number, index: number) => {
+    setLikes((prevState) => {
+      const updatedLikes = { ...prevState }
+      const postLikes = [...updatedLikes[postId]]
+      const item = postLikes[index]
+
+      item.active = !item.active
+
+      if (item.active && postLikes[1 - index].active) {
+        postLikes[1 - index].active = false
+        postLikes[1 - index].count -= 1
+      }
+
+      item.count = item.active ? item.count + 1 : item.count - 1
+      updatedLikes[postId] = postLikes
+
+      return updatedLikes
     })
   }
 
   return (
-    <VoteContext.Provider value={{ like, handleLike }}>
+    <VoteContext.Provider value={{ likes, handleLike }}>
       {children}
     </VoteContext.Provider>
   )

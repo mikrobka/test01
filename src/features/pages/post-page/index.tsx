@@ -19,6 +19,7 @@ export const PostPage = () => {
   const postsStatus = useAppSelector((state) => state.posts.status)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const postId = Number(id)
 
   useEffect(() => {
     dispatch(fetchPostById(Number(id)))
@@ -43,7 +44,7 @@ export const PostPage = () => {
           <ArrowBack />
           <Typography>Вернуться к статьям</Typography>
         </Button>
-        <Vote />
+        <Vote postId={postId} />
       </div>
       <div className={s.title}>
         <Typography variant={"h2"}>{post.title}</Typography>

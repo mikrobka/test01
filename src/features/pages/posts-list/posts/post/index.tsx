@@ -32,7 +32,7 @@ export const Post = ({ post, fullWidth = true }: Props) => {
           <Typography className={s.typography} variant={"h2"}>
             {post.title}
           </Typography>
-          <Vote />
+          <Vote postId={post.id} />
         </div>
         {fullWidth && (
           <div className={s.body}>
