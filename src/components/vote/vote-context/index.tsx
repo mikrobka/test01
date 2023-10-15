@@ -62,6 +62,7 @@ export const VoteProvider = ({ children }: VoteProviderProps) => {
       return updatedLikes
     })
   }
+  // мне показалось делать синхрон через редакс скучным и не особо нужным так что решил сделать через контекст
 
   return (
     <VoteContext.Provider value={{ likes, handleLike }}>
